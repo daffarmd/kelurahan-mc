@@ -116,7 +116,6 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col">
-                <h1>test</h1>
                 @yield('content')
               </div>
             </div>
