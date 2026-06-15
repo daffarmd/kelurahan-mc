@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Penduduk;
+use App\Models\Surat;
 
-
-class KelurahanController extends Controller
+class PendudukController extends Controller
 {
     public function index()
     {
@@ -24,6 +25,6 @@ class KelurahanController extends Controller
     {
         $semuaSurat = Surat::with('penduduk')->get();
 
-        return view('daftar_surat', compact('semuaSurat'));
+        return view('surat_index', compact('semuaSurat'));
     }
 }
