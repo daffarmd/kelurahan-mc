@@ -98,14 +98,3 @@ atau
 ./vendor/bin/phpunit
 ```
 
-**Useful Commands**
-- **Clear caches**: `php artisan optimize:clear`
-- **Run queued jobs (local)**: `php artisan queue:work`
-- **View routes**: `php artisan route:list`
-
-**Notes & Troubleshooting**
-- Jika Anda memakai Docker (Sail) dan ingin menjalankan lewat Sail, jalankan `./vendor/bin/sail up -d` setelah instalasi dependensi.
-- Pastikan versi PHP dan ekstensi yang diperlukan tersedia (ext-mbstring, ext-xml, ext-pdo, dll.).
-- Jika migration gagal karena versi atau struktur database, periksa file migrasi di folder `database/migrations` dan sesuaikan konfigurasi database di `.env`.
-
-Jika Anda ingin saya juga membuat skrip `setup.sh` atau menambahkan instruksi Docker/Sail, beri tahu saya.
