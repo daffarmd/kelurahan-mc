@@ -17,14 +17,22 @@
             </tr>
         </thead>
         <tbody>
+            @php
+                $jenisLabels = [
+                    'surat_keterangan' => 'Surat Keterangan',
+                    'surat_permohonan' => 'Surat Permohonan',
+                    'surat_pengantar' => 'Surat Pengantar',
+                ];
+            @endphp
+
             @foreach($semuaSurat as $surat)
                 <tr>
                     <td>{{ $surat->nomor_surat }}</td>
-                    <td>{{ $surat->jenis_surat }}</td>
+                    <td>{{ $jenisLabels[$surat->jenis_surat] ?? $surat->jenis_surat }}</td>
                     <td>{{ $surat->penduduk->nik ?? 'Unknown' }}</td>
                     <td>{{ $surat->penduduk->nama ?? 'Unknown' }}</td>
                     <td>{{ $surat->penduduk->alamat ?? 'Unknown' }}</td>
-                    <td>{{ $surat->tanggal_ajuan }}</td>
+                    <td>{{ isset($surat->tanggal_ajuan) ? \Carbon\Carbon::parse($surat->tanggal_ajuan)->format('d-m-Y') : '-' }}</td>
                 </tr>
             @endforeach
         </tbody>

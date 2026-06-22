@@ -15,11 +15,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // 1. Membuat user bawaan untuk login (opsional)
+        // Gunakan firstOrCreate agar tidak error bila sudah ada
+        User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'password' => bcrypt('password'),
+            ]
+        );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // 2. Panggil Seeder yang kamu buat secara berurutan
+        $this->call([
+            PendudukSeeder::class, // Wajib di atas karena Surat butuh data Penduduk
+            SuratSeeder::class,
         ]);
     }
 }

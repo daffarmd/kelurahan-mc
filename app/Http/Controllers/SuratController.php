@@ -22,7 +22,8 @@ class SuratController extends Controller
      */
     public function create()
     {
-        return view('surat.create');
+        $penduduks = Penduduk::orderBy('nama')->get();
+        return view('surat.create', compact('penduduks'));
     }
 
     /**
@@ -33,24 +34,14 @@ class SuratController extends Controller
         $validated = $request->validate([
             'nomor_surat' => 'required|string|max:255',
             'jenis_surat' => 'required|string|max:255',
-            'nik' => 'required|string|max:255',
-            'nama' => 'required|string|max:255',
-            'alamat' => 'required|string|max:255',
+            'penduduk_id' => 'required|exists:penduduks,id',
             'tanggal_ajuan' => 'required|date',
         ]);
-
-        $penduduk = Penduduk::firstOrCreate(
-            ['nik' => $validated['nik']],
-            [
-                'nama' => $validated['nama'],
-                'alamat' => $validated['alamat'],
-            ]
-        );
 
         Surat::create([
             'nomor_surat' => $validated['nomor_surat'],
             'jenis_surat' => $validated['jenis_surat'],
-            'penduduk_id' => $penduduk->id,
+            'penduduk_id' => $validated['penduduk_id'],
             'tanggal_ajuan' => $validated['tanggal_ajuan'],
         ]);
 
