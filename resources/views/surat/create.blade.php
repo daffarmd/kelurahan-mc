@@ -39,37 +39,15 @@
                     @error('jenis_surat') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="nik" class="form-label">NIK Pemohon</label>
-                        <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik" value="{{ old('nik') }}" required>
-                        @error('nik') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="nama" class="form-label">Nama Warga</label>
-                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}" required>
-                        @error('nama') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
-                </div>
-
                 <div class="mb-3">
-                    <label class="form-label d-block">Jenis Kelamin</label>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input @error('jk') is-invalid @enderror" type="radio" name="jk" id="jk_l" value="L" {{ old('jk')=='L' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="jk_l">Laki-laki</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input @error('jk') is-invalid @enderror" type="radio" name="jk" id="jk_p" value="P" {{ old('jk')=='P' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="jk_p">Perempuan</label>
-                    </div>
-                    @error('jk') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="alamat" class="form-label">Alamat</label>
-                    <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" value="{{ old('alamat') }}" required>
-                    @error('alamat') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    <label for="penduduk_id" class="form-label">Pilih Penduduk (NIK - Nama)</label>
+                    <select class="form-select @error('penduduk_id') is-invalid @enderror" id="penduduk_id" name="penduduk_id" required>
+                        <option value="">-- pilih penduduk --</option>
+                        @foreach($penduduks as $p)
+                            <option value="{{ $p->id }}" {{ old('penduduk_id') == $p->id ? 'selected' : '' }}>{{ $p->nik }} - {{ $p->nama }}</option>
+                        @endforeach
+                    </select>
+                    @error('penduduk_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="mb-3">
