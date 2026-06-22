@@ -14,7 +14,7 @@ class SuratController extends Controller
     public function index()
     {
         $semuaSurat = Surat::with('penduduk')->get();
-        return view('surat_index', compact('semuaSurat'));
+        return view('surat.index', compact('semuaSurat'));
     }
 
     /**
@@ -61,7 +61,9 @@ class SuratController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $surat = Surat::findOrFail($id);
+        $penduduks = Penduduk::orderBy('nama')->get();
+        return view('surat.edit', compact('surat', 'penduduks'));
     }
 
     /**
@@ -69,7 +71,18 @@ class SuratController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $surat = Surat::findOrFail($id);
+
+        $validated = $request->validate([
+            'nomor_surat' => 'required|string|max:255',
+            'jenis_surat' => 'required|string|max:255',
+            'penduduk_id' => 'required|exists:penduduks,id',
+            'tanggal_ajuan' => 'required|date',
+        ]);
+
+        $surat->update($validated);
+
+        return redirect()->route('surat.index')->with('success', 'Surat berhasil diperbarui.');
     }
 
     /**
@@ -77,6 +90,9 @@ class SuratController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $surat = Surat::findOrFail($id);
+        $surat->delete();
+
+        return redirect()->route('surat.index')->with('success', 'Surat berhasil dihapus.');
     }
 }
